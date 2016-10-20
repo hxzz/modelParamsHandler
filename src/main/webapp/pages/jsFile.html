@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf8">
+</head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="../jslibs/jQuery-1.11.3/jquery.min.js"></script>
+<script src="../jslibs/dynamicLoad.js"></script>
+
+<body>
+<input type="file" id ="file" />
+<script type="text/javascript">
+(function(){
+	
+	var f=document.getElementById("file");
+	
+	f.onchange=function(){
+		
+		//通过Blob URL来显示图片
+		/* var img=document.createElement("img");
+		var url=window.URL.createObjectURL(f.files[0]);
+		img.src=url;
+		document.getElementsByTagName("body")[0].appendChild(img); */
+		
+		
+		//通过FileReader的readAsDataURL方法来显示图片
+		var file=this.files[0];
+		var reader=new FileReader();
+		reader.readAsDataURL(file);
+		reader.onload=function(){
+			var res=reader.result;
+			if(file.type=="text/plain"){
+				 var div=document.createElement("div");
+				 div.innerHTML=res;
+				 document.getElementsByTagName("body")[0].appendChild(div);
+			}else if(file.type=='image/x-png'||file.type=='image/png'){
+				  var img=document.createElement("img");
+				 img.src=res;
+				 document.getElementsByTagName("body")[0].appendChild(img); 
+			}
+		}
+		  
+	}
+	 
+  
+})();
+</script>
+
+</body>
+
+</html>

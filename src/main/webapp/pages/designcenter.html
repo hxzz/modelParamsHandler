@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>设计台</title>
+<!-- Bootstrap -->
+<link href="../css/bootstrap-3.3.5-dist/bootstrap.min.css" rel="stylesheet">
+<style type="text/css">
+.top_btns_span {
+	/* 	float: right;
+	list-style: none; */
+	
+}
+
+html {
+	height: 100%;
+	/* overflow-y: scroll;
+	overflow-x:hidden; */
+}
+body{
+	width:100%;
+	overflow-y: auto;
+	overflow-x:hidden; 
+	clear:both;
+	zoom:1;
+}
+
+/* .portal {
+	height: 200px;
+} */
+
+#portal_div {
+	text-align: center;
+	background-color: black;
+}
+
+.model_display_container {
+	border-top: solid 1px gray;
+	border-bottom: solid 1px gray;
+}
+
+.model_div {
+    background-color:white;
+	position:absolute;
+	z-index: 1;
+	width:100%;
+}
+
+.swipBar_div {
+    z-index: 100;
+	position:absolute;
+	width: 50px;
+	z-index: 1000;
+	right:0px;
+/* 	-moz-border-top-left-radius: 10px; 
+    -webkit-border-top-left-radius: 10px;   
+    border-top-left-radius:10px;     
+    -moz-border-bottom-left-radius: 10px; 
+    -webkit-border-bottom-left-radius: 10px;   
+    border-bottom-left-radius:10px;   */ 
+
+}
+
+.params_div {
+	filter:Alpha(opacity=85); 
+	background-color:white;
+	opacity:0.85;
+ 	color:black;
+	width:62%;
+	position:absolute;
+	right:-62%;;
+	z-index: 100;
+	/* overflow-y:atuo;
+	overflow-x:hidden; */
+}
+
+.param_input {
+	width: 100%;
+	border: none;
+	border-bottom: solid 1px black;
+	color:black;
+}
+
+.docs_iframe{
+	width:100%;
+	height:100%;
+	position:absolute;
+    border:0px;
+    overflow:scroll;
+    top:0px;
+    left:0px;
+    filter:Alpha(opacity=95); 
+    opacity:0.95;
+	background-color:white;
+	z-index:999;
+	display:none;
+}
+
+.user_comment_div{
+	
+}
+
+.user_comment_content_div{
+	width:100%;
+	min-heigt:140px;
+	text-align:left;
+	background-color:white;
+}
+
+</style>
+</head>
+<body>
+	<!-- <div>
+		<div id="top_btns" style="padding-right: 20px; text-align: right;">
+			<span id="nickname"> <a href="javaScript:void(0);">昵称</a>
+			</span> <span>|</span> <span id="message"> <a
+				href="javaScript:void(0);">消息</a>
+			</span> <span>|</span> <span id="myCenter"> <a
+				href="javaScript:void(0);">个人中心</a>
+			</span> <span>|</span> <span id="logout"> <a
+				href="javaScript:void(0);">退出</a>
+			</span>
+		</div>
+	</div> -->
+	<!-- <div id=portal_div>
+		<img alt="nothing" src="../resources/images/moon-light.png"
+			id="portal_img" class="portal" />
+	</div>-->
+	<div id="navigation" style="text-align: center;">
+		<div id="top_btns" style="padding-right: 20px; text-align: right;">
+			<span id="nickname"> <a href="javaScript:void(0);">昵称</a>
+			</span> <span>|</span> <span id="message"> <a
+				href="javaScript:void(0);">消息</a>
+			</span> <span>|</span> <span id="myCenter"> <a
+				href="javaScript:void(0);">个人中心</a>
+			</span> <span>|</span> <span id="logout"> <a
+				href="javaScript:void(0);">退出</a>
+			</span>
+		</div>
+		<ul class="nav nav-pills" style="text-align: center;">
+			<li role="presentation"><a href="#">首页</a></li>
+			<li role="presentation" class="active"><a href="#">设计台</a></li>
+			<li role="presentation"><a href="#">作品展示</a></li>
+			<li role="presentation"><a href="#">论坛</a></li>
+		</ul>
+		
+	</div> 
+	<div class="model_display_container" id="display_container_div">
+ 
+			<div id="model" class="model_div">
+				<!-- <img alt="" src="" /> -->
+			</div>
+	        <div id="swiper" class="swipBar_div" >
+	        	<div class="btn-group-vertical" id="btns_wrap_div" >
+	        		<button  class="btn btn-primary" id="settings_btn">
+	        			<img alt="设置" src="../resources/images/settings.jpg" style="height:27px;width:27px;">
+	        		</button>
+	        		<button  class="btn btn-primary" id="fullScreen" style="display:none;">全屏</button>
+	  				<button type="button" class="btn btn-primary" id="params_btn" style="display:none;">参数</button>
+	  				<button type="button" class="btn btn-primary" id="docs_btn" style="display:none;">文档</button>
+	  				<button type="button" class="btn btn-primary" id="assembling_btn" style="display:none;">装配</button>
+  				</div>
+			</div>
+			<div id="params" class="params_div" style="height:100%;">
+				<input type="text" style="display:none;" id="screen_status" value="0">
+				<table class="table" >
+					<thead>
+						<tr>
+							<th>参数名</th>
+							<th>参数值</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>长</td>
+							<td><input type="text" class="param_input" /></td>
+						</tr>
+					</tbody>
+				</table>
+				
+			</div>
+			<iframe id="docs_iframe" src="/web-resources/docs/Tips总结.html" class="docs_iframe"   ></iframe>
+		   
+	</div>
+	<br/><br/>
+	<h2>评论</h2>
+	<hr/>
+	
+	<div>
+		<form  class="bs-example bs-example-form" role="form">
+			<div class="input-group">
+	           <div class="input-group-addon"  >
+			      <img  width="100px" height="100px" id="userImage" src="../resources/images/head.jpeg">
+			      <br/>
+			      <label id="nickname_label">游客</label>
+			   </div>
+			   <div style=“width:100%;height:140px;”   id="comment_container" >		
+			   		<div data-container="#comment_container" data-toggle="popover" id="tip_content"
+			           data-placement="top" 	data-content="您输入的内容超过了500字"></div>	
+			              
+			   		<textarea  class="form-control " placeholder="在这里说几句吧 (●'v'●)♪ ,注意在500字以内" 
+			   		style="width:100%;height:100%;resize:none; z-index:0;" id="comment_words"></textarea>  
+			   		
+			   </div>
+	        </div>
+	        <div style="text-align:right;">
+	        		您已输入<label id="inputed_words" style="color:red;">0</label>个字，还剩<label id="rest_words" style="color:red;">500</label>个字			   
+			   		<button type="button" id="comment_submit_btn" class="btn btn-primary">提交</button>
+			 </div>
+	    </form>
+	</div>
+	
+	<br/><br/>
+	<h2>全部评论</h2>
+	<hr/>
+	<ul class="pagination" id="topPagination">
+		  <li><a href="javascript:void(0);">&laquo;</a></li>
+		  <li><a href="javascript:void(0);">1</a></li>
+		  <li><a href="javascript:void(0);">2</a></li>
+		  <li><a href="javascript:void(0);">3</a></li>
+		  <li><a href="javascript:void(0);">4</a></li>
+		  <li><a href="javascript:void(0);">5</a></li>
+	  	  <li><a href="#">&raquo;</a></li>
+	</ul>
+	<div id="allComment">
+		<div class="user_comment_div">
+		     <div class="input-group">
+		           <div class="input-group-addon"  >
+				      <img  width="100px" height="100px" id="userImage" src="../resources/images/head.jpeg">
+				      <br/>
+				   </div>
+				   <div class="user_comment_content_div input-group-addon"   >
+						<div style="text-align:left;margin-top:0px;color:blue;">作死先锋</div>
+						<br/>
+						
+						<div style="white-space: normal">
+					   		床前明月光，疑是地上霜。 举头望明月，低头思故乡。
+					   		<!-- 床前明月光，疑是地上霜。 举头望明月，低头思故乡。
+					   		床前明月光，疑是地上霜。 举头望明月，低头思故乡。
+					   		床前明月光，疑是地上霜。 举头望明月，低头思故乡。 
+					   		床前明月光，疑是地上霜。 举头望明月，低头思故乡。 -->
+				   		</div>
+				   		 <div style="text-align:right;">   		 	
+					   		  <a href="javascript:void(0);">赞(0)</a>
+					   		  <a href="javascript:void(0);">踩(0)</a>
+					   		  <a href="javascript:void(0);">回复(0)</a>
+				   		 </div>
+				   		 <textarea style="width:100%;height:100px;display:none;"></textarea>
+				   </div>
+	 			
+		     </div>
+		     
+		</div>
+		
+		<table class= "table"   id="">
+			<tr>
+				<td style="width:50px;height:50px;color:blue;">
+					<img  width="50px" height="50px"   src="../resources/images/head.jpeg">
+				</td>
+				<td style="text-align:left;vertical-align: top;"> 
+					<p style="text-align:left;color:blue;">作死先锋</p>
+					<div style="white-space: normal">
+					   		床前明月光，疑是地上霜。 举头望明月，低头思故乡。
+					   		床前明月光，疑是地上霜。 举头望明月，低头思故乡。
+					   		床前明月光，疑是地上霜。 举头望明月，低头思故乡。
+					   		床前明月光，疑是地上霜。 举头望明月，低头思故乡。 
+					   		床前明月光，疑是地上霜。 举头望明月，低头思故乡。
+					   		床前明月光，疑是地上霜。 举头望明月，低头思故乡。
+					   		床前明月光，疑是地上霜。 举头望明月，低头思故乡。
+					   		床前明月光，疑是地上霜。 举头望明月，低头思故乡。
+					   		床前明月光，疑是地上霜。 举头望明月，低头思故乡。 
+					   		床前明月光，疑是地上霜。 举头望明月，低头思故乡。
+					   		床前明月光，疑是地上霜。 举头望明月，低头思故乡。
+					   		床前明月光，疑是地上霜。 举头望明月，低头思故乡。
+					   		床前明月光，疑是地上霜。 举头望明月，低头思故乡。
+					   		床前明月光，疑是地上霜。 举头望明月，低头思故乡。 
+					   		床前明月光，疑是地上霜。 举头望明月，低头思故乡。 
+				   		</div>
+				   		 <div style="text-align:right;">   		 	
+					   		  <a href="javascript:void(0);">赞(0)</a>
+					   		  <a href="javascript:void(0);">踩(0)</a>
+					   		  <a href="javascript:void(0);">回复(0)</a>
+				   		 </div>
+				   		 <textarea style="width:100%;height:100px;"></textarea>
+			   			<div style="text-align:right;">
+				   		    您已输入<label id="inputed_words" style="color:red;">0</label>个字，还剩<label id="rest_words" style="color:red;">500</label>个字			   
+			   				<button type="button" id="comment_submit_btn" class="btn btn-primary">提交</button>
+			   			</div>	
+			   			<br/>
+			   			<div id="subResponse" style="display:none;">
+			   				<div style="border-top:solid 1px gray;">	
+				   				<img style="width:50px;height:50px;" src="../resources/images/head.jpeg">
+				   				<span style="color:blue;">作死先锋:</span>
+				   				《静夜思》
+				   				 <div style="text-align:right;">   		 	
+							   		  <a href="javascript:void(0);">赞(0)</a>
+							   		  <a href="javascript:void(0);">踩(0)</a>
+							   		  <a href="javascript:void(0);">回复(0)</a>
+					   		     </div>
+			   				</div>
+			   			</div>
+				</td>
+			<tr>
+			
+		</table>
+		 
+		
+
+	</div>
+	<ul class="pagination">
+		  <li><a href="javascript:void(0);">&laquo;</a></li>
+		  <li><a href="javascript:void(0);">1</a></li>
+		  <li><a href="javascript:void(0);">2</a></li>
+		  <li><a href="javascript:void(0);">3</a></li>
+		  <li><a href="javascript:void(0);">4</a></li>
+		  <li><a href="javascript:void(0);">5</a></li>
+	  	  <li><a href="#">&raquo;</a></li>
+	</ul>
+	
+	
+	
+	<footer id="foot" style=" bottom: 0px; text-align: center; width: 100%;">合新智造</footer>
+
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+	    <![endif]-->
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="../jslibs/jQuery-1.11.3/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="../jslibs/bootstrap-3.3.5-dist/bootstrap.min.js"></script>
+	<script type="text/javascript" src="designcenter.js"></script>
+	<script src="../jslibs/threejs/three.js"></script>
+	<script src="../jslibs/threejs/OrbitControls.js"></script>
+	<script src="../jslibs/threejs/VRMLLoader.js"></script>
+	<script src="../jslibs/threejs/Detector.js"></script>
+	<script src="../jslibs/threejs/stats.min.js"></script>
+	<script type="text/javascript">
+function commentArea(data){
+	 
+	
+	return container;
+}
+//$("#allComment").append(new commentArea());		
+		
+		
+		
+		
+	</script>
+</body>
+</html>

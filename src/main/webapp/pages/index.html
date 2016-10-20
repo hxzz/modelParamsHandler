@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>设计台</title>
+<!-- Bootstrap -->
+<link href="../css/bootstrap-3.3.5-dist/bootstrap.min.css" rel="stylesheet">
+<style type="text/css">
+			@font-face {
+				font-family: 'inconsolata';
+				src: url('../resources/inconsolata.woff') format('woff');
+				font-weight: normal;
+				font-style: normal;
+			}
+
+			body {
+				margin:0;
+				font-family: 'inconsolata';
+				font-size: 15px;
+				line-height: 18px;
+				overflow: hidden;
+			}
+
+			canvas { width: 100%; height: 100% }
+
+			#newWindow {
+				display: block;
+				position: absolute;
+				bottom: 0.3em;
+				left: 0.5em;
+				color: #fff;
+			}
+</style>
+</head>
+<body>
+	<a id='newWindow' href='./geometry-browser.html' target='_blank'>Open in New Window</a>
+
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+	    <![endif]-->
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="../jslibs/jQuery-1.11.3/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="../jslibs/bootstrap-3.3.5-dist/bootstrap.min.js"></script>
+	<script src="../jslibs/threejs/three.min.js"></script>
+	<script src="../jslibs/threejs/OrbitControls.js"></script>
+	<script src="../jslibs/threejs/dat.gui.min.js"></script>
+	<script src="../jslibs/threejs/Detector.js"></script>
+	<script type="text/javascript" src="../jslibs/threejs/geometry.js"></script>
+	<script type="text/javascript">
+	var gui = new dat.GUI();
+	$(function(){		
+		//document.getElementById( 'newWindow' ).href += window.location.hash;
+
+		
+		var scene = new THREE.Scene();
+		var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 50 );
+		camera.position.z = 30;
+
+		var renderer = new THREE.WebGLRenderer( { antialias: true } );
+		renderer.setPixelRatio( window.devicePixelRatio );
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		renderer.setClearColor( 0x000000 );
+		document.body.appendChild( renderer.domElement );
+
+		var orbit = new THREE.OrbitControls( camera, renderer.domElement );
+		orbit.enableZoom = false;
+
+		var ambientLight = new THREE.AmbientLight( 0x000000 );
+		scene.add( ambientLight );
+
+		var lights = [];
+		lights[ 0 ] = new THREE.PointLight( 0xffffff, 1, 0 );
+		lights[ 1 ] = new THREE.PointLight( 0xffffff, 1, 0 );
+		lights[ 2 ] = new THREE.PointLight( 0xffffff, 1, 0 );
+
+		lights[ 0 ].position.set( 0, 200, 0 );
+		lights[ 1 ].position.set( 100, 200, 100 );
+		lights[ 2 ].position.set( - 100, - 200, - 100 );
+
+		scene.add( lights[ 0 ] );
+		scene.add( lights[ 1 ] );
+		scene.add( lights[ 2 ] );
+
+		var mesh = new THREE.Object3D()
+
+		mesh.add( new THREE.LineSegments(
+
+			new THREE.Geometry(),
+
+			new THREE.LineBasicMaterial( {
+				color: 0xffffff,
+				transparent: true,
+				opacity: 0.5
+			} )
+
+		) );
+
+		mesh.add( new THREE.Mesh(
+
+			new THREE.Geometry(),
+
+			new THREE.MeshPhongMaterial( {
+				color: 0x156289,
+				emissive: 0x072534,
+				side: THREE.DoubleSide,
+				shading: THREE.FlatShading
+			} )
+
+		) );
+
+		var options = chooseFromHash( mesh );
+
+		scene.add( mesh );
+
+		var prevFog = false;
+
+		var render = function () {
+
+			requestAnimationFrame( render );
+
+			var time = Date.now() * 0.001;
+
+			if ( ! options.fixed ) {
+
+				mesh.rotation.x += 0.005;
+				mesh.rotation.y += 0.005;
+
+			}
+
+			renderer.render( scene, camera );
+
+		};
+
+		window.addEventListener( 'resize', function () {
+
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+
+			renderer.setSize( window.innerWidth, window.innerHeight );
+
+		}, false );
+
+		render();
+	});
+	
+	</script>
+</body>
+</html>

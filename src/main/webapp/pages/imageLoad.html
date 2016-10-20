@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>图片加载</title>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script type="text/javascript" src="../jslibs/three.js"></script>
+<script type="text/javascript">
+    var loader=new THREE.ImageLoader();
+    var img=loader.load("../resources/images/moon-light.png");
+    document.getElementsByTagName('body')[0].appendChild(img);
+</script>
+
+
+</body>
+</html>

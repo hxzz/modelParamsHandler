@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>md5Test</title>
+</head>
+<script type="text/javascript" src="../jslibs/jQuery-1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="../jslibs/jquery.md5.js"></script>
+<body>
+<label for="origin">origin:</label>
+<textarea style="height:100px;width:100%;resize:none;" id="origin"></textarea>
+<label for="md5String">md5String:</label>
+<div style="border:1px solid black;height:100px;width:100%;" id="md5String"></div>
+<script type="text/javascript">
+  document.getElementById("origin").onchange=function(){
+	    var md5String=$.md5(document.getElementById("origin").value);
+		$("#md5String").text(md5String);
+  }
+	
+</script>
+</body>
+</html>
