@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<title>登录</title>
+<link href="../../css/bootstrap-3.3.5-dist/bootstrap.min.css" rel="stylesheet">
+<link href="login.css" rel="stylesheet">
+</head>
+<body>
+<div style="text-align:center;">
+		<table class="table" id="table_main"  >
+			<tr>
+				<td style="background-color:#5bc0de;color:white;" colspan="2">
+				<h1>
+					<span id="caption">用户登录</span>
+					<a id="register" href="javascript:void(0);">
+						<span id="span_register" style="font-size:14px;">注册</span>
+					</a>
+				</h1>
+				</td>	
+			</tr>
+			<tr>
+				<td class="rowname">用户名<span class="red">*</span></td>
+				<td class="rowvalue"><input type="text" class="input" id="userName" /></td>
+			</tr>
+			<tr>
+				<td class="rowname">密码<span class="red">*</span></td>
+				<td class="rowvalue"><input type="password" id="password" class="input"/></td>
+			</tr>
+			<tr id="tr_reconfirm">
+				<td class="rowname">确认密码<span class="red">*</span></td>
+				<td class="rowvalue"><input type="password" id="reconfirm" class="input"/></td>
+			</tr>
+			<tr>
+				<td style="text-align:center;" colspan="2"><button id="btn_submit" class="btn btn-primary" style="width:100%;">确定</button></td>
+			</tr>
+		</table>
+		
+</div>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+	      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+	    <![endif]-->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="../../jslibs/jQuery-1.11.3/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../jslibs/bootstrap-3.3.5-dist/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../jslibs/jquery.md5.js"></script>
+<script type="text/javascript">
+	$(function(){
+		 
+		function setSize(){
+			var w=$(window).width(),h=$(window).height();
+			
+			//大小控制
+			var w2=w>600?(60000/w+"%"):"100%";
+			var h2=h>800?(80000/h+"%"):"100%";
+			$("#table_main").css("width",w2).css("height",h2);
+			
+			//位置控制
+			var left,top;
+			left= (w-$("#table_main").width())/2/w*100+"%";
+			top=(h-$("#table_main").height())/2/w*100+"%";
+		
+			$("#table_main").css("margin-left",left).css("margin-top",top);
+		}
+		setSize();
+		window.addEventListener("resize",setSize);
+		
+		
+		var isLogin=true;
+		function getValue(){
+			var values={};
+			if(!isLogin){
+				values.reconfirm=$("#reconfirm").val();
+			}
+			values.password=$.trim($("#password").val());
+			values.userName=$.trim($("#userName").val());
+			return values;
+		}
+		
+		function clearValues(){
+			var values={};
+			if(!isLogin){
+				values.reconfirm=$("#reconfirm").val("");
+			}
+			values.password=$("#password").val("");
+			values.userName=$("#userName").val("");
+		}
+		
+		$("#register").on("click",function(){
+			if(isLogin){   //页面是注册的时候
+				$("#tr_reconfirm").css("display","table-row");
+				$("#caption").text("用户注册");
+				$("#span_register").text("登录");
+				isLogin=false;
+				setSize();
+			}else{
+				$("#tr_reconfirm").css("display","none");
+				$("#caption").text("用户登录");
+				$("#span_register").text("注册");
+				isLogin=true;
+				setSize();
+			}
+			clearValues();
+		});
+		
+		function register(info){
+			info.password=$.md5(info.password);
+			
+		}
+		
+		function login(info){
+			info.password=$.md5(info.password);
+		}
+		function validate(values){
+			
+		}
+		
+		$("#btn_submit").on("click",function(){
+			if(isLogin){
+				login();
+			}else{
+				register();
+			}
+		});
+	});
+</script>
+</body>
+</html>

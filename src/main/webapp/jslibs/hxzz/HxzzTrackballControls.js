@@ -737,7 +737,7 @@ THREE.HxzzTrackballControls = function ( config) {
 			}
 
 			
-			console.info(JSON.stringify(mouse));
+			//console.info(JSON.stringify(mouse));
 			
 			if ( intersects.length > 0 ) { 
 				_lastAngle=0;

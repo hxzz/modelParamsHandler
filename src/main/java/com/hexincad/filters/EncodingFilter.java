@@ -39,7 +39,8 @@ public class EncodingFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		String s=request.getParameter("msg");
 		if(s!=null){
-			s=URLDecoder.decode(s,"UTF-8");
+		//	s = s.replaceAll("%(?![0-9a-fA-F]{2})", "%25");  
+		//	s=URLDecoder.decode(s,"UTF-8");
 		}
 		System.out.println(s+"\n****************************");
 		if(s!=null){

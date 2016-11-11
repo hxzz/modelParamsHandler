@@ -29,13 +29,16 @@ function loadXMLDoc(){
 function send(){
 	for(var i=0;i<1;i++){
 		loadXMLDoc();
-		xmlhttp.open("POST","/test/ModelParamsDiliver",true);
+		xmlhttp.open("POST","/modelParamsHandler/ModelParamsDiliver",true);
 		xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8;");
 		xmlhttp.setRequestHeader("charset","UTF-8");
 	//xmlhttp.setRequestHeader("charset", "UTF-8");
 
-		var str="msg="+encodeURI("长");
-		xmlhttp.send(str);
+		var str= document.getElementById("msg").value;
+		//var msg=escape(str);
+		 
+		msg =JSON.parse(str);
+		xmlhttp.send("msg="+JSON.stringify(msg));
 		console.info(); 
 	}
 	

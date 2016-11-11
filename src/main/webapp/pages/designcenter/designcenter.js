@@ -215,7 +215,6 @@ $(function(){
 		if(!paramsInfoList||$.trim(paramsInfoList)==''){
 			return;
 		}
-		
 		var paramList=$("#params_list")
 		for(var i=0; i<paramsInfoList.length;i++){
 			var p=paramsInfoList[i];
@@ -229,17 +228,21 @@ $(function(){
 			td.appendChild(input);
 			input=createDom("input",null,{"class":"param_input","value":p.value,id:"param_input_type"+i,"style":"display:none;"});
 			td.appendChild(input);
-	
-			
 		}
 		
 	}
 	
-	
-	
-	
 	function fillParamsValues(paramsValues){
+		if(!paramsValues||$.trim(paramsValues)==''){
+			return;
+		}
 		
+		if(typeof(paramsValues)=="object"){
+			for(var i=0;i<paramsValues.length;i++){
+				var ob=paramsValues[i];
+				
+			}
+		}
 	}
 	
 	
@@ -350,6 +353,18 @@ $(function(){
 		}
 	});
 	
+	
+	//模态框
+	$("#loginout").on("click",function(){
+		$("#model_body_login").css("margin-top","300px");
+		if($.trim($("#loginout").text())=="登录"){
+			$('#modal_login').modal({
+			    keyboard: true,
+			});
+		}else{
+			
+		}
+	});
 });
 
 

@@ -43,8 +43,8 @@ public class ModelParamsDiliver extends HttpServlet {
 				post.addtoQueue(hxMsg);
 				OutputStream out=response.getOutputStream();
 				out.write("recieved".getBytes());
-				out.close();
 				out.flush();
+				out.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 		}

@@ -1,0 +1,27 @@
+.rowname{
+		text-align:right;
+		font-size:20px;
+}
+	.rowvalue{
+		text-align:left;
+}
+.input{
+		width:100%;
+		font-size:20px;
+		border:none;
+		border-bottom:1px solid black;
+}
+html,body{
+		width:100%;
+		height:100%;
+	}
+html{
+		overflow:hidden;
+}
+	
+.red{
+		color:red;
+}
+	#tr_reconfirm{
+		display:none;
+}
